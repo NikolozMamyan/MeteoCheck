@@ -1,0 +1,331 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900);
+body {
+  background-color: #ebf2f6;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+#cardMeteo {
+  position: absolute;
+  cursor: move;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.group {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  line-height: 28px;
+  align-items: center;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  padding-left: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #f3f3f4;
+  color: #0d0c22;
+  transition: 0.3s ease;
+}
+
+.input::-moz-placeholder {
+  color: #9e9ea7;
+}
+
+.input::placeholder {
+  color: #9e9ea7;
+}
+
+.input:focus, input:hover {
+  outline: none;
+  border-color: rgba(234, 76, 137, 0.4);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(234, 76, 137, 0.1);
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  fill: #9e9ea7;
+  width: 20px;
+  height: 20px;
+}
+
+button {
+  border: none;
+  position: relative;
+  padding: 0.7em 2.4em;
+  font-size: 18px;
+  background: transparent;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  overflow: hidden;
+  color: #747171;
+  z-index: 1;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+button span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: -1;
+  border: 4px solid rgb(215, 224, 225);
+}
+
+button span::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 8%;
+  height: 500%;
+  background: var(--lightgray);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-60deg);
+  transition: all 0.3s;
+}
+
+button:hover span::before {
+  transform: translate(-50%, -50%) rotate(-90deg);
+  width: 100%;
+  background: #747171;
+}
+
+button:hover {
+  color: white;
+}
+
+button:active span::before {
+  background: #2751cd;
+}
+
+.weather-card {
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  width: 300px;
+  height: 280px;
+  background-color: rgb(215, 224, 225);
+  box-shadow: 0px 0px 25px 1px rgba(50, 50, 50, 0.1);
+  animation: appear 500ms ease-out forwards;
+}
+.weather-card h1 {
+  position: absolute;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-size: 80px;
+  color: #747171;
+  bottom: 0;
+  left: 35px;
+  opacity: 0;
+  transform: translateX(150px);
+  animation: title-appear 500ms ease-out 500ms forwards;
+}
+.weather-card p {
+  position: absolute;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-size: 28px;
+  color: #8e8a8a;
+  bottom: 0;
+  left: 35px;
+  animation: title-appear 1s ease-out 500ms forwards;
+}
+
+.weather-icon {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  top: 0;
+  float: right;
+  margin: 40px 40px 0 0;
+  animation: weather-icon-move 5s ease-in-out infinite;
+}
+
+.sun {
+  background: #FFCD41;
+  border-radius: 50%;
+  box-shadow: rgba(255, 255, 0, 0.1) 0 0 0 4px;
+  animation: light 800ms ease-in-out infinite alternate, weather-icon-move 5s ease-in-out infinite;
+}
+
+@keyframes light {
+  from {
+    box-shadow: rgba(255, 255, 0, 0.2) 0 0 0 10px;
+  }
+  to {
+    box-shadow: rgba(255, 255, 0, 0.2) 0 0 0 17px;
+  }
+}
+.cloud {
+  margin-right: 60px;
+  background: #b6cede;
+  border-radius: 20px;
+  width: 25px;
+  height: 25px;
+  box-shadow: #b6cede 24px -6px 0 2px, #b6cede 10px 5px 0 5px, #b6cede 30px 5px 0 2px, #b6cede 11px -8px 0 -3px, #b6cede 25px 11px 0 -1px;
+}
+.cloud:after {
+  content: "";
+  position: absolute;
+  border-radius: 10px;
+  background-color: transparent;
+  width: 4px;
+  height: 12px;
+  left: 0;
+  top: 31px;
+  transform: rotate(30deg);
+  animation: rain 800ms ease-in-out infinite alternate;
+}
+
+.detailWeather {
+  color: #747171;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-left: 10px;
+  padding-left: 17px;
+  padding-top: 5px;
+  width: 55%;
+  height: 30%;
+  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(223, 212, 59, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+}
+
+@keyframes rain {
+  from {
+    box-shadow: #2092A9 8px 0px, #2092A9 32px -6px, #2092A9 20px 0px;
+  }
+  to {
+    box-shadow: #2092A9 8px 6px, #2092A9 32px 0px, #2092A9 20px 6px;
+  }
+}
+@keyframes weather-icon-move {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.inspiration {
+  margin-top: 80px;
+  color: #709fbe;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  text-align: center;
+}
+.inspiration a {
+  color: #FF8F8F;
+  font-weight: 400;
+  animation: all 300ms ease-in-out;
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  75% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes title-appear {
+  from {
+    opacity: 0;
+    transform: translateX(150px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+.container_b {
+  width: 100%;
+  height: 100%;
+  --s: 30px; /* control the size */
+  --c: #0000, #333333 0.5deg 119.5deg, #0000 120deg;
+  --g1: conic-gradient(from 60deg at 56.25% calc(425% / 6), var(--c));
+  --g2: conic-gradient(from 180deg at 43.75% calc(425% / 6), var(--c));
+  --g3: conic-gradient(from -60deg at 50% calc(175% / 12), var(--c));
+  background: var(--g1), var(--g1) var(--s) calc(1.73 * var(--s)), var(--g2), var(--g2) var(--s) calc(1.73 * var(--s)), var(--g3) var(--s) 0, var(--g3) 0 calc(1.73 * var(--s)) #1e1e1e;
+  background-size: calc(2 * var(--s)) calc(3.46 * var(--s));
+}
+
+.toggle-switch {
+  position: relative;
+  width: 70px;
+  height: 60px;
+  --light: #d8dbe0;
+  --dark: #28292c;
+  --link: rgb(27, 129, 112);
+  --link-hover: rgb(24, 94, 82);
+}
+
+.switch-label {
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  background-color: var(--dark);
+  border-radius: 25px;
+  cursor: pointer;
+  border: 3px solid var(--dark);
+}
+
+.checkbox {
+  position: absolute;
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  transition: 0.3s;
+}
+
+.checkbox:checked ~ .slider {
+  background-color: var(--light);
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: inset 12px -4px 0px 0px var(--light);
+  background-color: var(--dark);
+  transition: 0.3s;
+}
+
+.checkbox:checked ~ .slider::before {
+  transform: translateX(30px);
+  background-color: var(--dark);
+  box-shadow: none;
+}/*# sourceMappingURL=styles.css.map */
